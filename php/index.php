@@ -38,7 +38,7 @@
             ?>
                 <div class="product_box">
                     <ul>
-                        <input class="delete_checkbox" type="checkbox" name="check[]" value="<?= $val['product_id']; ?>">
+                        <input class="delete-checkbox" type="checkbox" name="check[]" value="<?= $val['product_id']; ?>">
                         <li><?=$val['name'] ?></li>
                         <li><?=$val['sku'] ?></li>
                         <li><?=$val['price'] ?> $ </li>
