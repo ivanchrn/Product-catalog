@@ -49,8 +49,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
 
-    $(function() {
-        $("#productType").on('change', function(){
+    $(function() 
+    {
+        $("#productType").on('change', function()
+        {
             $(".type__product").hide();
             $('.product__input').removeAttr('required');
             let product = $(this).val();

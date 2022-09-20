@@ -1,9 +1,9 @@
 <?php
-    require_once("addConfig.php");
+    require_once("configs/addConfig.php");
+    require_once("configs/dvdConfig.php");
 
     $data = new addConfig();
     $all = $data->fetchAll();
-            
 ?>
 
 <!DOCTYPE html>
@@ -24,7 +24,7 @@
                 <div class="header__name">Product <yellow>List</yellow></div>
                 <div class = "header__buttons">
 
-                        <button  class="buttons" onclick="location.href='/php/addPage.php'" type="button">ADD</button>
+                        <button class="buttons" onclick="location.href='/php/addPage.php'" type="button">ADD</button>
                         <button class="buttons" name="delete" type="submit">MASS DELETE</button>
                     
                 </div>
@@ -38,10 +38,29 @@
             ?>
                 <div class="product_box">
                     <ul>
-                        <input class="delete_checkbox" type="checkbox" name="check[]" value="<?= $val['id']; ?>">
+                        <input class="delete_checkbox" type="checkbox" name="check[]" value="<?= $val['product_id']; ?>">
                         <li><?=$val['name'] ?></li>
                         <li><?=$val['sku'] ?></li>
                         <li><?=$val['price'] ?> $ </li>
+                        <? if($val['size'] > 0){ 
+                        ?>
+                            <li><?=$val['size'] ?> MB </li>
+                        <?
+                        } 
+                        ?>
+                        <? if($val['weight'] > 0){
+                        ?>
+                            <li><?=$val['weight'] ?> KG </li>
+                        <?
+                        } 
+                        ?>
+                        <? if($val['height'] > 0 && $val['width'] > 0 && $val['length'] > 0){
+                        ?>
+                            <li>Dimension: <?=$val['height'] ?>x<?=$val['width'] ?>x<?=$val['length'] ?> CM</li>
+                        <?
+                        }
+                        ?>
+
                     </ul>
                 </div>
             <?
