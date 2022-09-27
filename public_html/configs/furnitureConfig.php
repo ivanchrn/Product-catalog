@@ -1,6 +1,6 @@
 <?php
 
-require_once('addConfig.php');
+require_once(dirname(__DIR__ ) . '/configs/addConfig.php');
 
 class Furniture extends addConfig
 {

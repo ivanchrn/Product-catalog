@@ -1,16 +1,16 @@
-<?php 
+<?php
 
-require_once('addConfig.php');
+require_once(dirname(__DIR__ ) . '/configs/addConfig.php');
 
-class Dvd extends addConfig 
+class Book extends addConfig 
 {
-    private $dvd_id;
-    private $size; 
+    private $weight;
+    private $book_id;
 
     public function __construct()
     {
         parent::__construct();
-        $this->dvd_id = UUID::generate();
+        $this->book_id = UUID::generate();
         $this->dbCnx = new PDO(DB_TYPE.":host=".DB_HOST.";dbname=".DB_NAME, DB_USER, DB_PWD,[ PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC]);
     }
 
@@ -18,10 +18,10 @@ class Dvd extends addConfig
     {
         try
         {
-            $stm = $this->dbCnx->prepare("  INSERT INTO dvd (id, product_id, size) 
+            $stm = $this->dbCnx->prepare("  INSERT INTO book (id, product_id, weight) 
                                             VALUES (?, ?, ?)
                                         ");
-            $stm->execute([$this->dvd_id, $this->product_id, $this->size]);
+            $stm->execute([$this->book_id, $this->product_id, $this->weight]);
         }
         catch(Expection $e)
         {
@@ -29,17 +29,15 @@ class Dvd extends addConfig
         }
     }
 
-
-    public function setSize($size)
+    public function setWeight($weight)
     {
-        $this->size = $size;
-    }
-    
-    public function getSize()
-    {
-       return $this->size;
+        $this->weight = $weight;
     }
 
+    public function getWeight()
+    {
+       return $this->weight;
+    }
 }
 
 ?>

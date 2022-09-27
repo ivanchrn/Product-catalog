@@ -1,12 +1,22 @@
 <?php
-include ("utils/uuid.php");
-require_once ("database.php");
+include (dirname(__DIR__ ) . "/utils/uuid.php");
+require_once ("configs/database.php");
 
-class addConfig
-{
+abstract class AbstractClass{
 
     protected $dbCnx;
     protected $product_id;
+
+    public function __construct()
+    {
+        $this->product_id = time();
+        $this->dbCnx = new PDO(DB_TYPE.":host=".DB_HOST.";dbname=".DB_NAME, DB_USER, DB_PWD,[ PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC]);
+    }
+}
+
+class addConfig extends AbstractClass
+{
+
     private $sku;
     private $name;    
     private $price;
@@ -73,9 +83,9 @@ class addConfig
         {
             $stm = $this->dbCnx->prepare("  SELECT * 
                                             FROM products p 
-                                            JOIN dvd d ON(p.id = d.product_id) 
-                                            JOIN book b ON(p.id = b.product_id)
-                                            JOIN furniture f ON(p.id = f.product_id)
+                                            LEFT JOIN dvd d ON(p.id = d.product_id) 
+                                            LEFT JOIN book b ON(p.id = b.product_id)
+                                            LEFT JOIN furniture f ON(p.id = f.product_id)
                                         ");
             $stm->execute();
             return $stm->fetchAll();
@@ -111,7 +121,7 @@ class addConfig
                                             INNER JOIN dvd ON products.id = dvd.product_id  
                                             INNER JOIN book ON products.id = book.product_id 
                                             INNER JOIN furniture ON products.id = furniture.product_id
-                                            WHERE products.id = ?   
+                                            WHERE products.id = ?;
                                         ");
             $stm->execute([$id]);
             return $stm->fetchAll();
@@ -122,6 +132,4 @@ class addConfig
         }
     }
 }
-
-
 ?>

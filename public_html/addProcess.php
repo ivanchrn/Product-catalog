@@ -1,21 +1,16 @@
 <?php
-include 'ChromePhp.php';
-
     if(isset($_POST['send']))
     {
-        require_once('configs/addConfig.php');
-        require_once('configs/dvdConfig.php');
-        require_once('configs/bookConfig.php');
-        require_once('configs/furnitureConfig.php');
+        require_once(dirname(__DIR__ ) . "/public_html/configs/addConfig.php");
+        require_once(dirname(__DIR__ ) . "/public_html/configs/dvdConfig.php");
+        require_once(dirname(__DIR__ ) . "/public_html/configs/bookConfig.php");
+        require_once(dirname(__DIR__ ) . "/public_html/configs/furnitureConfig.php");
 
-        
         $sc = new addConfig();
-
         $sc->setSKU($_POST['sku']);
         $sc->setName($_POST['name']);
         $sc->setPrice($_POST['price']);
         $sc->insertData();
-
 
         $scDvd = new Dvd();
         $scDvd->setSize($_POST['size']);
@@ -30,11 +25,9 @@ include 'ChromePhp.php';
         $scFurniture->setWidth($_POST['width']);
         $scFurniture->setLength($_POST['length']);
         $scFurniture->insertData();
-        
-
     }
 
-    header('Location: /php/index.php');
+    header('Location: /public_html/index.php');
 
 
 
