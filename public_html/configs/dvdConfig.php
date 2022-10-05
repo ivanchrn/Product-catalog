@@ -29,25 +29,6 @@ class Dvd extends addConfig
         }
     }
 
-    public function fetchAll()
-    {
-        try
-        {
-            $stm = $this->dbCnx->prepare("  SELECT * 
-                                            FROM products p 
-                                            JOIN dvd d ON(p.id = d.product_id) 
-                                            JOIN book b ON(p.id = b.product_id)
-                                            JOIN furniture f ON(p.id = f.product_id)
-                                        ");
-            $stm->execute();
-            return $stm->fetchAll();
-        }
-        catch(Expection $e)
-        {
-            return $e->getMessage();
-        }
-    }
-
     public function setSize($size)
     {
         $this->size = $size;
