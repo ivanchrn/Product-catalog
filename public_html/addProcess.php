@@ -1,4 +1,7 @@
 <?php
+
+use FTP\Connection;
+
     if(isset($_POST['send']))
     {
         require_once(dirname(__DIR__ ) . "/public_html/configs/addConfig.php");
@@ -6,7 +9,10 @@
         require_once(dirname(__DIR__ ) . "/public_html/configs/bookConfig.php");
         require_once(dirname(__DIR__ ) . "/public_html/configs/furnitureConfig.php");
 
+
         $sc = new addConfig();
+        // $sc->checkSku($_POST['sku']);
+
         $sc->setSKU($_POST['sku']);
         $sc->setName($_POST['name']);
         $sc->setPrice($_POST['price']);

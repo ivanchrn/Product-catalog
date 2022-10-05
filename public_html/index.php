@@ -19,7 +19,7 @@
             <div class="container">
                <div class="header__inner">
                   <div class="header__name">
-                     Product List
+                     Product <span class="yellowcolor">List</span>
                   </div>
                   <div class = "header__buttons">
                      <button class="buttons" onclick="location.href='add-product.php'" type="button">ADD</button>
@@ -35,19 +35,19 @@
                         <ul>
                            <input class="delete-checkbox" type="checkbox" name="check[]" value="<?= $val['product_id']; ?>">
                            <li><?= $val['name']; ?></li>
-                           <li><?= $val['sku']; ?></li>
-                           <li><?= $val['price']; ?> $ </li>
+                           <li><span class="yellowcolor"><?= $val['sku']; ?></span></li>
+                           <li><?= $val['price']; ?><span class="yellowcolor"> $</span> </li>
 
                            <?php if($val['size'] > 0) : ?>
-                              <li><?= $val['size']; ?> MB </li>
+                              <li><?= $val['size']; ?><span class="yellowcolor"> MB </span></li>
                            <?php endif; ?>
 
                            <?php if($val['weight'] > 0) : ?>
-                              <li><?= $val['weight']; ?> KG </li>
+                              <li><?= $val['weight']; ?><span class="yellowcolor"> KG </span></li>
                            <?php endif; ?>
 
                            <?php if($val['height'] > 0 && $val['width'] > 0 && $val['length'] > 0) : ?>
-                              <li>Dimension: <?= $val['height']; ?>x<?= $val['width']; ?>x<?= $val['length']; ?> CM</li>
+                              <li>Dimension: <?= $val['height']; ?><span class="yellowcolor">x</span><?= $val['width']; ?><span class="yellowcolor">x</span><?= $val['length']; ?> <span class="yellowcolor">CM</span></li>
                            <?php endif; ?>        
                         </ul>
                      </div>

@@ -1,20 +1,10 @@
 <?php
 include (dirname(__DIR__ ) . "/utils/uuid.php");
-require_once ("configs/database.php");
+require_once(dirname(__DIR__ ) . '/configs/connDB.php');
 
-abstract class AbstractClass{
 
-    protected $dbCnx;
-    protected $product_id;
 
-    public function __construct()
-    {
-        $this->product_id = time();
-        $this->dbCnx = new PDO(DB_TYPE.":host=".DB_HOST.";dbname=".DB_NAME, DB_USER, DB_PWD,[ PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC]);
-    }
-}
-
-class addConfig extends AbstractClass
+class addConfig extends Connection
 {
 
     private $sku;
@@ -61,6 +51,30 @@ class addConfig extends AbstractClass
     {
        return $this->price;
     }
+
+    // public function checkSku($sku)
+    // {
+    //     try
+    //     {
+    //         $stm = $this->dbCnx->prepare("SELECT sku FROM products WHERE sku = :sku");                           
+    //         $stm->bindParam(':sku', $sku);
+    //         $stm->execute();
+
+
+    //         if($stm->rowCount() > 0)
+    //         {
+    //             echo 'yes';
+    //         } 
+    //         else 
+    //         {
+    //             echo 'no';
+    //         }
+    //     }
+    //     catch(Expection $e)
+    //     {
+    //         return $e->getMessage();
+    //     }
+    // }
 
     public function insertData()
     {
