@@ -1,32 +1,20 @@
 <?php
 
-require_once(dirname(__DIR__ ) . '/configs/addConfig.php');
+require_once(dirname(__DIR__ ) . '/configs/products.php');
+require_once(dirname(__DIR__ ) . "/utils/uuid.php");
 
-class Book extends addConfig 
+class Book extends Products 
 {
-    private $weight;
-    private $book_id;
+    protected $book_id;
+    protected $weight;
 
-    public function __construct()
+    public function __construct($sku, $name, $price, $weight)
     {
-        parent::__construct();
+        $product_id = time();
         $this->book_id = UUID::generate();
-        $this->dbCnx = new PDO(DB_TYPE.":host=".DB_HOST.";dbname=".DB_NAME, DB_USER, DB_PWD,[ PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC]);
-    }
+        $this->weight = $weight;
 
-    public function insertData()
-    {
-        try
-        {
-            $stm = $this->dbCnx->prepare("  INSERT INTO book (id, product_id, weight) 
-                                            VALUES (?, ?, ?)
-                                        ");
-            $stm->execute([$this->book_id, $this->product_id, $this->weight]);
-        }
-        catch(Expection $e)
-        {
-            return $e->getMessage();
-        }
+        parent::__construct($product_id, $sku, $name, $price, "INSERT INTO book (id, product_id, weight) VALUES ('$this->book_id', $product_id, '$this->weight')");
     }
 
     public function setWeight($weight)

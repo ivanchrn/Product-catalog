@@ -1,40 +1,28 @@
 <?php
 
-use FTP\Connection;
-
     if(isset($_POST['send']))
     {
-        require_once(dirname(__DIR__ ) . "/public_html/configs/addConfig.php");
+        require_once(dirname(__DIR__ ) . "/public_html/configs/config.php");
         require_once(dirname(__DIR__ ) . "/public_html/configs/dvdConfig.php");
         require_once(dirname(__DIR__ ) . "/public_html/configs/bookConfig.php");
         require_once(dirname(__DIR__ ) . "/public_html/configs/furnitureConfig.php");
 
-
-        $sc = new addConfig();
-        // $sc->checkSku($_POST['sku']);
-
-        $sc->setSKU($_POST['sku']);
-        $sc->setName($_POST['name']);
-        $sc->setPrice($_POST['price']);
-        $sc->insertData();
-
-        $scDvd = new Dvd();
-        $scDvd->setSize($_POST['size']);
-        $scDvd->insertData();
-
-        $scBook = new Book();
-        $scBook->setWeight($_POST['weight']);
-        $scBook->insertData();
-
-        $scFurniture = new Furniture();
-        $scFurniture->setHeight($_POST['height']);
-        $scFurniture->setWidth($_POST['width']);
-        $scFurniture->setLength($_POST['length']);
-        $scFurniture->insertData();
+        switch ($_POST['productType'])
+        {
+            case ("dvd") :
+                $scDvd = new Dvd($_POST['sku'], $_POST['name'], $_POST['price'], $_POST['size']);
+                $scDvd -> insertData();
+                break;
+            case ("book") :
+                $scBook = new Book($_POST['sku'], $_POST['name'], $_POST['price'], $_POST['weight']);
+                $scBook -> insertData();
+                break;
+            case ("furniture"):
+                $scFurn = new Furniture($_POST['sku'], $_POST['name'], $_POST['price'], $_POST['height'], $_POST['width'], $_POST['length']);
+                $scFurn -> insertData();
+                break;
+        }
     }
 
     header('Location: /public_html/index.php');
-
-
-
 ?>

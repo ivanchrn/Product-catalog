@@ -1,36 +1,25 @@
 <?php
 
-require_once(dirname(__DIR__ ) . '/configs/addConfig.php');
+require_once(dirname(__DIR__ ) . '/configs/products.php');
+require_once(dirname(__DIR__ ) . "/utils/uuid.php");
 
-class Furniture extends addConfig
+class Furniture extends Products
 {
+    private $furn_id;
     private $height;
     private $width;
     private $length;
-    private $furn_id;
 
-    public function __construct()
+    public function __construct($sku, $name, $price, $height, $width, $length)
     {
-      parent::__construct();
-      $this->furn_id = UUID::generate();
-      $this->dbCnx = new PDO(DB_TYPE.":host=".DB_HOST.";dbname=".DB_NAME, DB_USER, DB_PWD,[ PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC]);
-    }
+        $product_id = time();
+        $this->furn_id = UUID::generate();
+        $this->height = $height;
+        $this->width = $width;
+        $this->length = $length;
 
-    public function insertData()
-    {
-        try
-        {
-            $stm = $this->dbCnx->prepare("  INSERT INTO furniture (id, product_id, height, width, length) 
-                                            VALUES (?, ?, ?, ?, ?)
-                                        ");
-            $stm->execute([$this->furn_id, $this->product_id, $this->height, $this->width, $this->length]);
-        }
-        catch(Expection $e)
-        {
-            return $e->getMessage();
-        }
+      parent::__construct($product_id, $sku, $name, $price, "INSERT INTO furniture (id, product_id, height, width, length) VALUES ('$this->furn_id', $product_id, '$this->height', '$this->width', '$this->length')");
     }
-
 
     public function setHeight($height)
     {

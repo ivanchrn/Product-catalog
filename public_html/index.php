@@ -1,7 +1,8 @@
 <?php
-   require_once(dirname(__DIR__ ) . '/public_html/configs/addConfig.php');
+   require_once(dirname(__DIR__ ) . '/public_html/configs/config.php');
+   require_once(dirname(__DIR__ ) . '/public_html/configs/connDB.php');
    
-   $data = new addConfig();
+   $data = new Config();
    $all = $data->fetchAll();
 ?>
 <!DOCTYPE html>
@@ -11,7 +12,7 @@
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <link rel="stylesheet" href="css/style.css">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Document</title>
+      <title>ScandiWeb</title>
    </head>
    <body>
       <header class = "header">
@@ -33,7 +34,7 @@
                      <?php foreach($all as $key=>$val): ?>
                      <div class="product_box">
                         <ul>
-                           <input class="delete-checkbox" type="checkbox" name="check[]" value="<?= $val['product_id']; ?>">
+                           <input class="delete-checkbox" type="checkbox" name="check[]" value="<?= $val['id']; ?>">
                            <li><?= $val['name']; ?></li>
                            <li><span class="yellowcolor"><?= $val['sku']; ?></span></li>
                            <li><?= $val['price']; ?><span class="yellowcolor"> $</span> </li>

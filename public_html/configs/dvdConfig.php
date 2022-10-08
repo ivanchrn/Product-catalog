@@ -1,32 +1,20 @@
 <?php 
 
-require_once(dirname(__DIR__ ) . '/configs/addConfig.php');
+require_once(dirname(__DIR__ ) . '/configs/products.php');
+require_once(dirname(__DIR__ ) . "/utils/uuid.php");
 
-class Dvd extends addConfig 
+class Dvd extends Products 
 {
     private $dvd_id;
     private $size; 
 
-    public function __construct()
+    public function __construct($sku, $name, $price, $size)
     {
-        parent::__construct();
+        $product_id = time();
         $this->dvd_id = UUID::generate();
-        $this->dbCnx = new PDO(DB_TYPE.":host=".DB_HOST.";dbname=".DB_NAME, DB_USER, DB_PWD,[ PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC]);
-    }
+        $this->size = $size;
 
-    public function insertData()
-    {
-        try
-        {
-            $stm = $this->dbCnx->prepare("  INSERT INTO dvd (id, product_id, size) 
-                                            VALUES (?, ?, ?)
-                                        ");
-            $stm->execute([$this->dvd_id, $this->product_id, $this->size]);
-        }
-        catch(Expection $e)
-        {
-            return $e->getMessage();
-        }
+        parent::__construct($product_id, $sku, $name, $price, "INSERT INTO dvd (id, product_id, size) VALUES ('$this->dvd_id', $product_id, '$this->size')");
     }
 
     public function setSize($size)
@@ -38,7 +26,6 @@ class Dvd extends addConfig
     {
        return $this->size;
     }
-
 }
 
 ?>
